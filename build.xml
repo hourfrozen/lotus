@@ -67,18 +67,8 @@
     nbproject/build-impl.xml file. 
 
     -->
-	<target name="instrument-classes">
-        <taskdef name="instrument-stack"
-            classname="cz.advel.stack.instrument.InstrumentationTask"
-            classpath="${run.classpath}">
-        </taskdef>
-		
-        <instrument-stack dest="${build.classes.dir}" packageName="com.bulletphysics" isolated="true">
-            <fileset dir="${build.classes.dir}" includes="**/*.class"/>
-        </instrument-stack>
-	</target>
-	
-	<target name="-post-compile" depends="instrument-classes">
+
+	<target name="-post-compile">
 	</target>
 	
 	<target name="-do-jar-without-manifest">
