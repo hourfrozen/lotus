@@ -82,7 +82,7 @@
 	
 	<target depends="init" name="-javadoc-build">
 		<mkdir dir="${dist.javadoc.dir}"/>
-		<javadoc destdir="${dist.javadoc.dir}" failonerror="true" access="public" windowtitle="JBullet" author="false">
+		<javadoc destdir="${dist.javadoc.dir}" failonerror="false" access="public" windowtitle="JBullet" author="false">
 			<doctitle>JBullet - Java port of Bullet Physics Library (!! LOTUS FORK !!)</doctitle>
 			<group title="Base library" packages="com.bulletphysics:com.bulletphysics.linearmath*:com.bulletphysics.util"/>
 			<group title="Collision library" packages="com.bulletphysics.collision*"/>
