@@ -72,8 +72,8 @@
 	</target>
 	
 	<target name="-do-jar-without-manifest">
-		<!-- jbullet.jar -->
-		<jar destfile="dist/jbullet.jar" basedir="build/classes" excludes="**/*.java,**/*.form,com/bulletphysics/demos/**"/>
+		<!-- lotus.jar -->
+		<jar destfile="dist/lotus.jar" basedir="build/classes" excludes="**/*.java,**/*.form,com/bulletphysics/demos/**"/>
 		
 		<!-- jbullet-demos.jar -->
 		<jar destfile="dist/jbullet-demos.jar" basedir="build/classes" includes="com/bulletphysics/demos/**" excludes="**/*.java,**/*.form,**/*.diff"/>
@@ -83,7 +83,7 @@
 	<target depends="init" name="-javadoc-build">
 		<mkdir dir="${dist.javadoc.dir}"/>
 		<javadoc destdir="${dist.javadoc.dir}" failonerror="true" access="public" windowtitle="JBullet" author="false">
-			<doctitle>JBullet - Java port of Bullet Physics Library</doctitle>
+			<doctitle>JBullet - Java port of Bullet Physics Library (!! LOTUS FORK !!)</doctitle>
 			<group title="Base library" packages="com.bulletphysics:com.bulletphysics.linearmath*:com.bulletphysics.util"/>
 			<group title="Collision library" packages="com.bulletphysics.collision*"/>
 			<group title="Dynamics library" packages="com.bulletphysics.dynamics*"/>
@@ -102,7 +102,7 @@
 	<target name="webstart" depends="jar">
 		<mkdir dir="dist/webstart"/>
 		<copy todir="dist/webstart">
-			<fileset file="dist/jbullet.jar"/>
+			<fileset file="dist/lotus.jar"/>
 			<fileset file="dist/jbullet-demos.jar"/>
 			<fileset dir="lib/vecmath" includes="**/*.jar"/>
 			<fileset dir="lib/lwjgl" includes="**/*.jar"/>
@@ -125,7 +125,7 @@
 	<target name="applet" depends="jar">
 		<!-- jbullet-applet.jar -->
 		<jar destfile="dist/jbullet-applet.jar">
-			<zipfileset src="dist/jbullet.jar" excludes="META-INF/**" filemode="644" dirmode="755"/>
+			<zipfileset src="dist/lotus.jar" excludes="META-INF/**" filemode="644" dirmode="755"/>
 			<zipfileset src="dist/jbullet-demos.jar" excludes="META-INF/**" filemode="644" dirmode="755"/>
 			<zipfileset src="lib/vecmath/vecmath.jar" excludes="META-INF/**" filemode="644" dirmode="755"/>
 			<zipfileset src="lib/swing-layout/swing-layout-1.0.3.jar" excludes="META-INF/**" filemode="644" dirmode="755"/>

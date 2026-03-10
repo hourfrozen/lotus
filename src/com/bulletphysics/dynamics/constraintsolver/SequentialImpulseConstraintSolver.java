@@ -26,6 +26,9 @@ package com.bulletphysics.dynamics.constraintsolver;
 import com.bulletphysics.BulletGlobals;
 import com.bulletphysics.BulletStats;
 import com.bulletphysics.ContactDestroyedCallback;
+import com.bulletphysics.lotus.CFG;
+import com.bulletphysics.lotus.math.Phys;
+import com.bulletphysics.lotus.sor;
 import com.bulletphysics.util.ObjectPool;
 import com.bulletphysics.collision.broadphase.Dispatcher;
 import com.bulletphysics.collision.dispatch.CollisionObject;
@@ -196,6 +199,7 @@ public class SequentialImpulseConstraintSolver extends ConstraintSolver {
 
 			float positionalError = -contactConstraint.penetration * solverInfo.erp2 / solverInfo.timeStep;
 			//      btScalar positionalError = contactConstraint.m_penetration;
+			positionalError *= CFG.PGSPenetrationResolutionDamping;
 
 			float velocityError = contactConstraint.restitution - rel_vel;// * damping;
 
@@ -255,6 +259,11 @@ public class SequentialImpulseConstraintSolver extends ConstraintSolver {
 			float penetrationImpulse = positionalError * contactConstraint.jacDiagABInv;
 			float velocityImpulse = velocityError * contactConstraint.jacDiagABInv;
 			normalImpulse = penetrationImpulse + velocityImpulse;
+			contactConstraint.sorFactor = sor.computeFactor(
+					contactConstraint.penetration,
+					contactConstraint.sorFactor
+			);
+			normalImpulse *= contactConstraint.sorFactor;
 
 
 			// See Erin Catto's GDC 2006 paper: Clamp the accumulated impulse
@@ -299,6 +308,12 @@ public class SequentialImpulseConstraintSolver extends ConstraintSolver {
 
 				// calculate j that moves us to zero relative velocity
 				j1 = -rel_vel * contactConstraint.jacDiagABInv;
+				contactConstraint.sorFactor = sor.computeFactor(
+						contactConstraint.penetration,
+						contactConstraint.sorFactor
+				);
+				j1 *= contactConstraint.sorFactor;
+
 				//#define CLAMP_ACCUMULATED_FRICTION_IMPULSE 1
 				//#ifdef CLAMP_ACCUMULATED_FRICTION_IMPULSE
 				float oldTangentImpulse = contactConstraint.appliedImpulse;
@@ -313,6 +328,7 @@ public class SequentialImpulseConstraintSolver extends ConstraintSolver {
 					}
 				}
 				j1 = contactConstraint.appliedImpulse - oldTangentImpulse;
+
 				//	#else
 				//	if (limit < j1)
 				//	{
@@ -646,7 +662,11 @@ public class SequentialImpulseConstraintSolver extends ConstraintSolver {
 
 									rel_vel = cp.normalWorldOnB.dot(vel);
 
-									solverConstraint.penetration = Math.min(cp.getDistance() + infoGlobal.linearSlop, 0f);
+									float relVel = rel_vel;
+									float margin = Phys.computePenetrationMargin(relVel);
+
+									solverConstraint.penetration = Math.min(cp.getDistance() + margin, 0f);
+
 									//solverConstraint.m_penetration = cp.getDistance();
 									
 									solverConstraint.friction = cp.combinedFriction;

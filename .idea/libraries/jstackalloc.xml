@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jstackalloc">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/jstackalloc/stack-alloc.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jstackalloc/jstackalloc-20080716.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jstackalloc/stack-alloc-javadoc.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

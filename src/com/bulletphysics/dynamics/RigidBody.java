@@ -35,6 +35,7 @@ import com.bulletphysics.linearmath.MiscUtil;
 import com.bulletphysics.linearmath.MotionState;
 import com.bulletphysics.linearmath.Transform;
 import com.bulletphysics.linearmath.TransformUtil;
+import com.bulletphysics.lotus.CFG;
 import com.bulletphysics.util.ObjectArrayList;
 import cz.advel.stack.Stack;
 import cz.advel.stack.StaticAlloc;
@@ -130,7 +131,7 @@ public class RigidBody extends CollisionObject {
 		totalForce.set(0f, 0f, 0f);
 		totalTorque.set(0f, 0f, 0f);
 		linearDamping = 0f;
-		angularDamping = 0.5f;
+		angularDamping = CFG.angularDamp();
 		linearSleepingThreshold = constructionInfo.linearSleepingThreshold;
 		angularSleepingThreshold = constructionInfo.angularSleepingThreshold;
 		optionalMotionState = constructionInfo.motionState;
