@@ -3,7 +3,8 @@
 <!-- some examples of how to customize the build. -->
 <!-- (If you delete it and reopen the project it will be recreated.) -->
 <project name="javabullet" default="default" basedir=".">
-    <description>Builds, tests, and runs the project javabullet.</description>
+	<property name="dist.jar" value="dist/lotus.jar"/>
+	<description>Builds, tests, and runs the project javabullet.</description>
     <import file="nbproject/build-impl.xml"/>
 
     <import file="nbproject/profiler-build-impl.xml"/>    <!--
