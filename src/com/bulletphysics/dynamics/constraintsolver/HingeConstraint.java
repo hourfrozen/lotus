@@ -529,6 +529,7 @@ public class HingeConstraint extends TypedConstraint {
 				rbB.applyTorqueImpulse(tmp);
 			}
 		}
+		appliedImpulse *= sorFactor;
 	}
 
 	public void updateRHS(float timeStep) {

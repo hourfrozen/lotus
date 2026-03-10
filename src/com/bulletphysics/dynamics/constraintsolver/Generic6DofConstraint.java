@@ -381,6 +381,7 @@ public class Generic6DofConstraint extends TypedConstraint {
 				angularLimits[i].solveAngularLimits(this.timeStep, angular_axis, angularJacDiagABInv, rbA, rbB);
 			}
 		}
+		appliedImpulse *= sorFactor;
 	}
 	
 

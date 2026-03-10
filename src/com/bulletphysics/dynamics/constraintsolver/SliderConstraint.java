@@ -191,6 +191,7 @@ public class SliderConstraint extends TypedConstraint {
 		else {
 			solveConstraintInt(rbB, rbA);
 		}
+		appliedImpulse *= sorFactor;
 	}
 	
 	public Transform getCalculatedTransformA(Transform out) {

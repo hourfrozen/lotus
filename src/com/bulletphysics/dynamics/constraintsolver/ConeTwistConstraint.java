@@ -367,6 +367,7 @@ public class ConeTwistConstraint extends TypedConstraint {
 				rbB.applyTorqueImpulse(tmp);
 			}
 		}
+		appliedImpulse *= sorFactor;
 	}
 
 	public void updateRHS(float timeStep) {

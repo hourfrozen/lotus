@@ -178,6 +178,7 @@ public class Point2PointConstraint extends TypedConstraint {
 
 			VectorUtil.setCoord(normal, i, 0f);
 		}
+		appliedImpulse *= sorFactor;
 	}
 	
 	public void updateRHS(float timeStep) {
