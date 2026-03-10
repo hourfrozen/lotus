@@ -38,7 +38,7 @@ public class SolverConstraint {
 	public final Vector3f relpos1CrossNormal = new Vector3f();
 	public final Vector3f contactNormal = new Vector3f();
 
-	public float sorFactor = CFG.sorConstraintsModulation_conservativeValue;
+	public float sorFactor = 1.0f;
 
 	public final Vector3f relpos2CrossNormal = new Vector3f();
 	public final Vector3f angularComponentA = new Vector3f();

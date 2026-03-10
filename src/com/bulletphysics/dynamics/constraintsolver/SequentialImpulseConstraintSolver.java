@@ -259,7 +259,7 @@ public class SequentialImpulseConstraintSolver extends ConstraintSolver {
 			float penetrationImpulse = positionalError * contactConstraint.jacDiagABInv;
 			float velocityImpulse = velocityError * contactConstraint.jacDiagABInv;
 			normalImpulse = penetrationImpulse + velocityImpulse;
-			contactConstraint.sorFactor = sor.computeFactor(
+			contactConstraint.sorFactor = sor.CLcomputeFactor(
 					contactConstraint.penetration,
 					contactConstraint.sorFactor
 			);
@@ -308,7 +308,7 @@ public class SequentialImpulseConstraintSolver extends ConstraintSolver {
 
 				// calculate j that moves us to zero relative velocity
 				j1 = -rel_vel * contactConstraint.jacDiagABInv;
-				contactConstraint.sorFactor = sor.computeFactor(
+				contactConstraint.sorFactor = sor.CLcomputeFactor(
 						contactConstraint.penetration,
 						contactConstraint.sorFactor
 				);

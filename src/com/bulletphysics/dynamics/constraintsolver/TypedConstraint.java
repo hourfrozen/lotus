@@ -24,6 +24,9 @@
 package com.bulletphysics.dynamics.constraintsolver;
 
 import com.bulletphysics.dynamics.RigidBody;
+import com.bulletphysics.lotus.CFG;
+import com.bulletphysics.lotus.sor;
+
 import javax.vecmath.Vector3f;
 
 /**
@@ -45,6 +48,7 @@ public abstract class TypedConstraint {
 		return s_fixed;
 	}
 
+	public float sorFactor = CFG.sorConstraintsModulation_conservativeValue;
 	private int userConstraintType = -1;
 	private int userConstraintId = -1;
 
@@ -68,10 +72,18 @@ public abstract class TypedConstraint {
 		this.rbB = rbB;
 		getFixed().setMassProps(0f, new Vector3f(0f, 0f, 0f));
 	}
-	
+
+	public float computeConstraintError() {
+		return 0f;
+	}
+
+
 	public abstract void buildJacobian();
 
-	public abstract void solveConstraint(float timeStep);
+	public void solveConstraint(float timeStep) {
+		float constraintError = computeConstraintError();
+		sorFactor = sor.CScomputeFactor(constraintError, sorFactor);
+	};
 	
 	public RigidBody getRigidBodyA() {
 		return rbA;

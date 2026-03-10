@@ -23,6 +23,8 @@
 
 package com.bulletphysics.dynamics.constraintsolver;
 
+import com.bulletphysics.lotus.CFG;
+
 /**
  * Current state of contact solver.
  * 
@@ -35,7 +37,7 @@ public class ContactSolverInfo {
 	public float friction = 0.3f;
 	public float timeStep;
 	public float restitution = 0f;
-	public int numIterations = 10;
+	public int numIterations = CFG.numIterations;
 	public float maxErrorReduction = 20f;
 	public float sor = 1.3f;
 	public float erp = 0.2f; // used as Baumgarte factor
