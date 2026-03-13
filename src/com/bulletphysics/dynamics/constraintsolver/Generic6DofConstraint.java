@@ -120,6 +120,21 @@ public class Generic6DofConstraint extends TypedConstraint {
 		this.useLinearReferenceFrameA = useLinearReferenceFrameA;
 	}
 
+	public Generic6DofConstraint(RigidBody rbA,
+								 Transform frameInA,
+								 boolean useLinearReferenceFrameA) {
+		super(TypedConstraintType.D6_CONSTRAINT_TYPE, rbA);
+
+		this.rbA = rbA;
+		this.rbB = null;
+
+		this.frameInA.set(frameInA); // fix to be FrameInA
+		this.frameInB.setIdentity();
+
+		this.useLinearReferenceFrameA = useLinearReferenceFrameA;
+	}
+
+
 	private static float getMatrixElem(Matrix3f mat, int index) {
 		int i = index % 3;
 		int j = index / 3;

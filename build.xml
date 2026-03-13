@@ -69,10 +69,15 @@
 
     -->
 	<target name="instrument-classes">
+		<!--
+		this echo never fucking runs.
+		-->
+		<echo>im instrumenting, asshole</echo>
 		<taskdef name="instrument-stack"
 				 classname="cz.advel.stack.instrument.InstrumentationTask">
 			<classpath>
-				<pathelement location="lib/jstackalloc/stack-alloc.jar"/>
+				<fileset dir="lib" includes="**/*.jar"/>
+				<pathelement location="${build.classes.dir}"/>
 			</classpath>
 		</taskdef>
 
@@ -81,8 +86,7 @@
 		</instrument-stack>
 	</target>
 
-	<target name="-post-compile">
-	</target>
+	<target name="-post-compile" depends="instrument-classes"/>
 	
 	<target name="-do-jar-without-manifest">
 		<!-- lotus.jar -->
