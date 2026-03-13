@@ -25,6 +25,10 @@ jobs:
       run: ant -noinput -buildfile build.xml
     - uses: actions/upload-artifact@v4
       with:
-        name: my-artifact
+        name: lotus.jar
         path: dist/**
+    - uses: actions/upload-artifact@v4
+      with:
+        name: pom.xml
+        path: pom.xml
 
