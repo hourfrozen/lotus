@@ -31,7 +31,10 @@ http://gimpact.sf.net
 package com.bulletphysics.dynamics.constraintsolver;
 
 import com.bulletphysics.BulletGlobals;
+import com.bulletphysics.collision.dispatch.CollisionFlags;
+import com.bulletphysics.collision.shapes.BoxShape;
 import com.bulletphysics.dynamics.RigidBody;
+import com.bulletphysics.linearmath.DefaultMotionState;
 import com.bulletphysics.linearmath.MatrixUtil;
 import com.bulletphysics.linearmath.Transform;
 
@@ -126,7 +129,10 @@ public class Generic6DofConstraint extends TypedConstraint {
 		super(TypedConstraintType.D6_CONSTRAINT_TYPE, rbA);
 
 		this.rbA = rbA;
-		this.rbB = null;
+		RigidBody staticWorld = new RigidBody(0, new DefaultMotionState(), new BoxShape(new Vector3f(0.1f, 0.1f, 0.1f)));
+		staticWorld.setWorldTransform(new Transform()); // identity
+		this.rbB = staticWorld;
+		staticWorld.setCollisionFlags(CollisionFlags.NO_CONTACT_RESPONSE);
 
 		this.frameInA.set(frameInA); // fix to be FrameInA
 		this.frameInB.setIdentity();
@@ -235,8 +241,10 @@ public class Generic6DofConstraint extends TypedConstraint {
 		rbA.getCenterOfMassTransform(calculatedTransformA);
 		calculatedTransformA.mul(frameInA);
 
-		rbB.getCenterOfMassTransform(calculatedTransformB);
-		calculatedTransformB.mul(frameInB);
+		if (rbB != null) {
+			rbB.getCenterOfMassTransform(calculatedTransformB);
+			calculatedTransformB.mul(frameInB);
+		}
 
 		calculateAngleInfo();
 	}
