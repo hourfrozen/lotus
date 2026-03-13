@@ -30,5 +30,5 @@ jobs:
     - uses: actions/upload-artifact@v4
       with:
         name: pom.xml
-        path: /pom.xml
+        path: pom.xml
 
