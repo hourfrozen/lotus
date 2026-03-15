@@ -4,7 +4,7 @@ import com.bulletphysics.lotus.math.Basic;
 
 public class sor {
     public static boolean enablecl = true;
-    public static boolean enablecs = false;
+    public static boolean enablecs = true;
     private static float ret = 0.4f;
     ///  # Compute the SOR Factor based on penetration.
     ///
