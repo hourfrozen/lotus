@@ -271,7 +271,24 @@ public class ConeTwistConstraint extends TypedConstraint {
 	}
 
 	@Override
+	public float computeConstraintError() {
+		float err = 0f;
+
+		if (solveSwingLimit) {
+			err += Math.abs(swingCorrection);
+		}
+
+		if (solveTwistLimit) {
+			err += Math.abs(twistCorrection);
+		}
+
+		return err;
+	}
+
+
+	@Override
 	public void solveConstraint(float timeStep) {
+		super.solveConstraint(timeStep);
 		Vector3f tmp = Stack.alloc(Vector3f.class);
 		Vector3f tmp2 = Stack.alloc(Vector3f.class);
 

@@ -107,7 +107,24 @@ public class Point2PointConstraint extends TypedConstraint {
 	}
 
 	@Override
+	public float computeConstraintError() {
+		Transform comA = rbA.getCenterOfMassTransform(Stack.alloc(Transform.class));
+		Transform comB = rbB.getCenterOfMassTransform(Stack.alloc(Transform.class));
+
+		Vector3f pivotAInW = Stack.alloc(pivotInA);
+		comA.transform(pivotAInW);
+
+		Vector3f pivotBInW = Stack.alloc(pivotInB);
+		comB.transform(pivotBInW);
+
+		Vector3f tmp = Stack.alloc(Vector3f.class);
+		tmp.sub(pivotAInW, pivotBInW);
+		return tmp.length();
+	}
+
+	@Override
 	public void solveConstraint(float timeStep) {
+		super.solveConstraint(timeStep);
 		Vector3f tmp = Stack.alloc(Vector3f.class);
 		Vector3f tmp2 = Stack.alloc(Vector3f.class);
 		Vector3f tmpVec = Stack.alloc(Vector3f.class);

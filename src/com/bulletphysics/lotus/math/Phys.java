@@ -4,7 +4,7 @@ import com.bulletphysics.lotus.CFG;
 
 public class Phys {
     public static float computePenetrationMargin(float penetrationVelocity) {
-        float min = CFG.PGSPenetrationMarginMin;
+        float min = CFG.PGSPenetrationMarginMin; // oh noo
         float max = CFG.PGSPenetrationMarginMax;
 
         if (Math.abs(penetrationVelocity) < CFG.PGSPenetrationVelocityForMinMargin) {

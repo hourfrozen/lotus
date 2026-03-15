@@ -355,8 +355,43 @@ public class Generic6DofConstraint extends TypedConstraint {
 		}
 	}
 
+	private float computeLinearError() {
+		Vector3f diff = Stack.alloc(Vector3f.class);
+		diff.sub(calculatedTransformA.origin, calculatedTransformB.origin);
+
+		float total = 0f;
+
+		for (int i = 0; i < 3; i++) {
+			if (linearLimits.isLimited(i)) {
+				Vector3f axis = jacLinear[i].linearJointAxis;
+				float err = -diff.dot(axis);
+				total += Math.abs(err);
+			}
+		}
+
+		return total;
+	}
+
+	private float computeAngularError() {
+		float total = 0f;
+
+		for (int i = 0; i < 3; i++) {
+			if (angularLimits[i].needApplyTorques()) {
+				total += Math.abs(angularLimits[i].currentLimitError);
+			}
+		}
+
+		return total;
+	}
+
+	@Override
+	public float computeConstraintError() {
+		return computeLinearError() + computeAngularError();
+	}
+
 	@Override
 	public void solveConstraint(float timeStep) {
+		super.solveConstraint(timeStep);
 		this.timeStep = timeStep;
 
 		//calculateTransforms();

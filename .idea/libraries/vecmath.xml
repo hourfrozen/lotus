@@ -1,9 +1,0 @@
-<component name="libraryTable">
-  <library name="vecmath">
-    <CLASSES>
-      <root url="jar://$PROJECT_DIR$/lib/vecmath/vecmath.jar!/" />
-    </CLASSES>
-    <JAVADOC />
-    <SOURCES />
-  </library>
-</component>

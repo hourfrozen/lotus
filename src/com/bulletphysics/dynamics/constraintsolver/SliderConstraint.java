@@ -183,7 +183,25 @@ public class SliderConstraint extends TypedConstraint {
 	}
 
 	@Override
+	public float computeConstraintError() {
+		float err = 0f;
+
+		// linear limit violation
+		if (solveLinLim) {
+			err += Math.abs(depth.x);
+		}
+
+		// angular limit violation
+		if (solveAngLim) {
+			err += Math.abs(angDepth);
+		}
+
+		return err;
+	}
+
+	@Override
 	public void solveConstraint(float timeStep) {
+		super.solveConstraint(timeStep);
 		this.timeStep = timeStep;
 		if (useLinearReferenceFrameA) {
 			solveConstraintInt(rbA, rbB);

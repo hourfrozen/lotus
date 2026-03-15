@@ -357,7 +357,26 @@ public class HingeConstraint extends TypedConstraint {
 	}
 
 	@Override
+	public float computeConstraintError() {
+		Transform comA = rbA.getCenterOfMassTransform(Stack.alloc(Transform.class));
+		Transform comB = rbB.getCenterOfMassTransform(Stack.alloc(Transform.class));
+
+		Vector3f pivotAInW = Stack.alloc(rbAFrame.origin);
+		comA.transform(pivotAInW);
+
+		Vector3f pivotBInW = Stack.alloc(rbBFrame.origin);
+		comB.transform(pivotBInW);
+
+		Vector3f diff = Stack.alloc(Vector3f.class);
+		diff.sub(pivotAInW, pivotBInW);
+
+		return diff.length();
+	}
+
+
+	@Override
 	public void solveConstraint(float timeStep) {
+		super.solveConstraint(timeStep);
 		Vector3f tmp = Stack.alloc(Vector3f.class);
 		Vector3f tmp2 = Stack.alloc(Vector3f.class);
 		Vector3f tmpVec = Stack.alloc(Vector3f.class);

@@ -74,7 +74,7 @@ public abstract class TypedConstraint {
 	}
 
 	public float computeConstraintError() {
-		return 0f;
+		return 1f;
 	}
 
 
